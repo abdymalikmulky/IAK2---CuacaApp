@@ -11,6 +11,9 @@ public class Cuaca {
     String jenis;
     String curahHujan;
 
+    public Cuaca(){
+
+    }
     public Cuaca(String hari, String bulan, String tanggal, String jenis, String curahHujan) {
         this.hari = hari;
         this.bulan = bulan;

@@ -1,10 +1,12 @@
 package com.abdymalikmulky.iak;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
@@ -23,7 +25,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String URL_API = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Bandung,ID&mode=json&units=metric&cnt=7&appid=352d697da89a30abe1f993dd58ad2e6b";
+    private static final String URL_API = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Brazil&mode=json&units=metric&cnt=7&appid=352d697da89a30abe1f993dd58ad2e6b";
 
 
     HttpURLConnection httpURLConnection = null;
@@ -50,9 +52,31 @@ public class MainActivity extends AppCompatActivity {
         cuacaAdapter = new CuacaAdapter(MainActivity.this,cuacas);
         listCuaca.setAdapter(cuacaAdapter);
 
+        listCuaca.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Cuaca cuaca = new Cuaca();
+                cuaca = cuacas.get(position);
+
+
+                Intent detailIntent = new Intent(MainActivity.this,DetailActivty.class);
+
+                detailIntent.putExtra("hari",cuaca.getHari());
+                detailIntent.putExtra("tanggal",cuaca.getTanggal());
+                detailIntent.putExtra("bulan",cuaca.getBulan());
+                detailIntent.putExtra("jenis",cuaca.getJenis());
+                detailIntent.putExtra("humadity",cuaca.getCurahHujan());
+
+                startActivity(detailIntent);
+
+            }
+        });
+
+
 
         new FetchWeatherTask().execute();
     }
+
 
     public class FetchWeatherTask extends AsyncTask<Void, Void, Void> {
         private final String LOG_TAG = FetchWeatherTask.class.getSimpleName();
