@@ -17,9 +17,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DetailActivty"
-            android:label="@string/action_bar_label_detail"
-            />
+        <activity
+            android:name=".DetailActivty"
+            android:label="@string/action_bar_label_detail" />
+        <activity android:name=".SettingActivity"
+            android:label="@string/label_setting"></activity>
     </application>
 
 </manifest>
